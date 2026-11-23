@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SGC-LABORAL | Portal de Empresas (PyMEs)</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="manifest.json"> <meta name="theme-color" content="#047857">
+    <link rel="stylesheet" href="css/estilos.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#047857',
+                        secondary: '#0F172A',
+                        accent: '#9E5704',
+                        baseBg: '#E0E2E3',
+                        danger: '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-baseBg text-secondary min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+
+    <!-- HEADER EMPRESAS -->
+    <header class="fixed top-0 left-0 w-full bg-secondary text-white shadow-md z-30 h-16 flex items-center justify-between px-4 md:px-8">
+        <button onclick="toggleDrawer()" class="text-white text-2xl p-2 rounded-lg hover:bg-white/10 transition">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        
+        <div class="flex flex-col items-center cursor-pointer select-none" onclick="navTo('emp-view-inicio')">
+            <div class="flex items-center gap-1.5">
+                <i class="fa-solid fa-building-shield text-xl text-emerald-400"></i>
+                <h1 class="text-base font-black tracking-widest leading-none">SGC-EMPRESAS</h1>
+            </div>
+            <span class="text-[9px] font-bold tracking-widest uppercase text-emerald-300">Reclutamiento Auditado ODS 8</span>
+        </div>
+
+        <button onclick="verificarEmpresa()" class="text-emerald-400 text-2xl p-2 rounded-lg hover:bg-white/10 transition">
+            <i class="fa-solid fa-building-user"></i>
+        </button>
+    </header>
+
+    <!-- MENÚ LATERAL EMPRESAS -->
+    <div id="drawer-overlay" onclick="toggleDrawer()" class="fixed inset-0 bg-black/60 z-40 hidden opacity-0 transition-opacity duration-300"></div>
+    <nav id="drawer" class="fixed top-0 left-0 h-full w-72 bg-secondary text-white z-50 transform -translate-x-full transition-transform duration-300 shadow-2xl flex flex-col pt-20 px-6">
+        <div class="border-b border-white/20 pb-4 mb-6">
+            <h2 class="text-lg font-bold">Portal Corporativo</h2>
+            <p id="drawer-emp-status" class="text-xs text-emerald-300 mt-1">Empresa no autenticada</p>
+        </div>
+        
+        <div class="flex flex-col gap-3 font-medium text-sm">
+            <button onclick="navTo('emp-view-inicio')" class="text-left px-4 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition flex items-center gap-3">
+                <i class="fa-solid fa-house"></i> Inicio
+            </button>
+
+            <button onclick="irACandidatos()" class="text-left px-4 py-3 rounded-xl border border-emerald-400/50 text-emerald-300 hover:bg-white/10 transition flex items-center gap-3">
+                <i class="fa-solid fa-users-viewfinder"></i> Candidatos
+            </button>
+
+            <button id="nav-emp-perfil" onclick="navTo('emp-view-perfil')" class="hidden text-left px-4 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition flex items-center gap-3">
+                <i class="fa-solid fa-building"></i> Perfil de Empresa
+            </button>
+
+            <button onclick="navTo('emp-view-sobre-nosotros')" class="text-left px-4 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition flex items-center gap-3">
+                <i class="fa-solid fa-circle-info"></i> Sobre Nosotros
+            </button>
+
+            <a id="nav-emp-volver-candidatos" href="index.html" class="text-left px-4 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition flex items-center gap-3 text-gray-300">
+                <i class="fa-solid fa-arrow-left"></i> Ir a Portal Candidatos
+            </a>
+
+            <button id="drawer-emp-btn" onclick="verificarEmpresa()" class="mt-4 px-4 py-3 rounded-xl bg-primary hover:bg-emerald-700 text-white font-bold transition flex items-center justify-center gap-2 shadow-lg">
+                <i class="fa-solid fa-right-to-bracket"></i> Acceso Empresas
+            </button>
+        </div>
+    </nav>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="flex-1 w-full max-w-md md:max-w-2xl lg:max-w-4xl mx-auto pt-20 pb-12 px-4">
+
+        <!-- 1. INICIO EMPRESAS -->
+        <section id="emp-view-inicio" class="view-container active">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200">
+                <div class="p-6 md:p-10 text-center">
+                    <span class="bg-emerald-100 text-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase">Programa PyMEs ODS 8</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-secondary mt-3 mb-2">Contrata Talento Joven Certificado</h2>
+                    <p class="text-xs md:text-sm text-gray-600 max-w-xl mx-auto mb-6">
+                        Accede a candidatos evaluados técnicamente del Nivel 1 al 10, con diagnóstico detallado de competencias y respaldados por contratos formales auditados bajo la Ley Federal del Trabajo.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                        <button onclick="verificarEmpresa()" class="bg-primary hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition">
+                            Registrar / Iniciar Sesión Empresa
+                        </button>
+                        <button onclick="irACandidatos()" class="bg-secondary hover:bg-slate-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition">
+                            Ver Candidatos Evaluados
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. LOGIN / REGISTRO EMPRESA -->
+        <section id="emp-view-login" class="view-container">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Iniciar Sesión Empresa -->
+                <div class="bg-white rounded-3xl shadow-xl p-6 border border-gray-200">
+                    <h2 class="text-lg font-black text-secondary mb-4">Iniciar Sesión Empresa</h2>
+                    <form id="form-login-empresa" class="space-y-4 text-xs">
+                        <div>
+                            <label class="font-bold block mb-1">Correo Institucional</label>
+                            <input type="email" id="emp-login-correo" placeholder="rh@empresa.com" class="w-full border-2 border-gray-300 rounded-xl p-3" required>
+                        </div>
+                        <div>
+                            <label class="font-bold block mb-1">Contraseña</label>
+                            <input type="password" id="emp-login-pass" placeholder="••••••••" class="w-full border-2 border-gray-300 rounded-xl p-3" required>
+                        </div>
+                        <button type="submit" class="w-full bg-secondary hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow">
+                            Entrar al Portal B2B
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Registrar Nueva Empresa -->
+                <div class="bg-white rounded-3xl shadow-xl p-6 border border-gray-200">
+                    <h2 class="text-lg font-black text-primary mb-4">Registrar Nueva Empresa</h2>
+                    <form id="form-registro-empresa" class="space-y-3 text-xs">
+                        <input type="text" id="emp-nombre" placeholder="Nombre de la Empresa" class="w-full border-2 border-gray-300 rounded-xl p-3" required>
+                        <input type="text" id="emp-rfc" placeholder="RFC (Ej. STB260101ABC)" class="w-full border-2 border-gray-300 rounded-xl p-3 uppercase" required>
+                        <input type="email" id="emp-correo" placeholder="Correo Institucional" class="w-full border-2 border-gray-300 rounded-xl p-3" required>
+                        <input type="password" id="emp-pass" placeholder="Crea una contraseña" class="w-full border-2 border-gray-300 rounded-xl p-3" required>
+                        <div class="grid grid-cols-2 gap-2">
+                            <select id="emp-tamano" class="w-full border-2 border-gray-300 rounded-xl p-3 bg-white">
+                                <option>1 - 10 empleados</option>
+                                <option>11 - 50 empleados</option>
+                                <option>Más de 50 empleados</option>
+                            </select>
+                            <input type="text" id="emp-sector" placeholder="Sector / Giro" class="w-full border-2 border-gray-300 rounded-xl p-3" required>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow">
+                            Registrar Empresa
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PERFIL DE LA EMPRESA -->
+        <section id="emp-view-perfil" class="view-container">
+            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-200 space-y-6">
+                <div class="bg-secondary text-white rounded-2xl p-5 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-building"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase font-bold text-emerald-400">Empresa Verificada • Sello ODS 8</span>
+                            <h2 id="perfil-emp-titulo" class="text-xl font-black">Nombre Empresa</h2>
+                        </div>
+                    </div>
+                    <button onclick="cerrarSesionEmpresa()" class="bg-white/10 hover:bg-white/20 text-xs font-bold py-2 px-4 rounded-xl">
+                        Cerrar Sesión
+                    </button>
+                </div>
+
+                <form id="form-editar-empresa" class="space-y-4 text-xs">
+                    <h3 class="font-bold text-secondary text-sm border-b pb-2">Datos Corporativos de la Empresa</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="font-bold block mb-1 text-gray-600">Razón Social / Nombre Comercial</label>
+                            <input type="text" id="edit-emp-nombre" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold" required>
+                        </div>
+                        <div>
+                            <label class="font-bold block mb-1 text-gray-600">RFC Validado</label>
+                            <input type="text" id="edit-emp-rfc" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold uppercase" required>
+                        </div>
+                        <div>
+                            <label class="font-bold block mb-1 text-gray-600">Correo Institucional</label>
+                            <input type="email" id="edit-emp-correo" class="w-full bg-gray-200 border border-gray-300 rounded-xl p-3 text-gray-500" readonly>
+                        </div>
+                        <div>
+                            <label class="font-bold block mb-1 text-gray-600">Sector / Giro</label>
+                            <input type="text" id="edit-emp-sector" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="font-bold block mb-1 text-gray-600">Tamaño de la Organización</label>
+                            <select id="edit-emp-tamano" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
+                                <option>1 - 10 empleados</option>
+                                <option>11 - 50 empleados</option>
+                                <option>Más de 50 empleados</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <button type="submit" class="bg-primary hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl shadow text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-floppy-disk"></i> Guardar Datos de Empresa
+                        </button>
+                        <button type="button" onclick="irACandidatos()" class="bg-secondary hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl shadow text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-users-viewfinder"></i> Evaluar Candidatos
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 4. CANDIDATOS POSTULADOS -->
+        <section id="emp-view-candidatos" class="view-container">
+            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-200 space-y-6">
+                <div class="flex justify-between items-center border-b pb-4">
+                    <div>
+                        <h2 class="text-xl font-black text-secondary">Candidatos Evaluados</h2>
+                        <p class="text-xs text-gray-500">Revisa sus calificaciones y emite tu decisión con retroalimentación.</p>
+                    </div>
+                    <button onclick="cargarCandidatos()" class="bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-xl text-xs font-bold">
+                        <i class="fa-solid fa-rotate"></i> Actualizar
+                    </button>
+                </div>
+
+                <div id="lista-candidatos-empresa" class="space-y-4">
+                    <p class="text-xs text-center text-gray-500 py-6">Cargando candidatos...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SOBRE NOSOTROS -->
+        <section id="emp-view-sobre-nosotros" class="view-container">
+            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-10 text-center border border-gray-200 space-y-4">
+                <h2 class="text-2xl font-bold text-secondary">Alianza PyMEs & Universidad Politécnica de Pénjamo</h2>
+                <p class="text-xs md:text-sm text-gray-700 text-justify leading-relaxed">
+                    SGC-LABORAL conecta a micro y pequeñas empresas formalmente constituidas con egresados verificados. Nuestro compromiso es reducir la rotación de personal mediante evaluaciones técnicas transparentes y promover el cumplimiento del Objetivo de Desarrollo Sostenible 8 (Trabajo Decente y Crecimiento Económico).
+                </p>
+                <button onclick="navTo('emp-view-inicio')" class="bg-secondary text-white font-bold py-2.5 px-6 rounded-full text-xs">
+                    Volver al Inicio
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/empresas.js"></script>
+</body>
+</html>
