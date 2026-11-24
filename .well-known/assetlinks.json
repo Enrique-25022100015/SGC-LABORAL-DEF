@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.upp.sgclaboral",
+    "sha256_cert_fingerprints": [
+      "4A:19:36:51:37:C1:AF:DD:BC:B0:ED:83:BB:73:AF:8F:5A:07:A4:80:61:B2:33:38:62:97:B1:0D:18:36:6E:8C"
+    ]
+  }
+}]
