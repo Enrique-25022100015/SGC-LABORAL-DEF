@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SGC-LABORAL | Panel Administrador</title>
     
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#047857">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="manifest" href="manifest.json">, <meta name="theme-color" content="#047857">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/estilos.css">
 
     <script>
@@ -48,13 +50,13 @@
 
     <main class="flex-1 w-full max-w-5xl mx-auto py-8 px-4">
 
-        <!-- PANTALLA DE CONTRASEÑA ADMIN -->
+        <!-- PANTALLA DE CONTRASEÑA ADMIN (Validación en servidor RPC) -->
         <section id="admin-login-box" class="max-w-sm mx-auto bg-white rounded-3xl shadow-xl p-8 border border-gray-200 text-center mt-10">
             <div class="w-14 h-14 bg-secondary text-emerald-400 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
                 <i class="fa-solid fa-lock"></i>
             </div>
             <h2 class="text-xl font-black text-secondary mb-1">Acceso Restringido</h2>
-            <p class="text-xs text-gray-500 mb-6">Ingresa la contraseña de administrador para auditar la base de datos.</p>
+            <p class="text-xs text-gray-500 mb-6">Ingresa la clave administrativa validada por el servidor.</p>
 
             <form id="form-admin-login" class="space-y-4">
                 <input type="password" id="admin-pass-input" placeholder="Contraseña de administrador" class="w-full border-2 border-gray-300 rounded-xl p-3 text-sm text-center focus:border-primary focus:outline-none" required>
@@ -67,7 +69,6 @@
         <!-- PANEL ADMINISTRADOR DESBLOQUEADO -->
         <section id="admin-dashboard" class="hidden space-y-6">
             
-            <!-- Tarjetas Resumen -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-white p-4 rounded-2xl shadow border border-gray-200">
                     <p class="text-xs text-gray-500 font-bold">Usuarios Registrados</p>
@@ -78,16 +79,15 @@
                     <h3 id="stat-empresas" class="text-2xl font-black text-primary mt-1">0</h3>
                 </div>
                 <div class="bg-white p-4 rounded-2xl shadow border border-gray-200">
-                    <p class="text-xs text-gray-500 font-bold">Exámenes Realizados</p>
+                    <p class="text-xs text-gray-500 font-bold">Intentos Evaluados</p>
                     <h3 id="stat-evaluaciones" class="text-2xl font-black text-accent mt-1">0</h3>
                 </div>
                 <div class="bg-white p-4 rounded-2xl shadow border border-gray-200">
-                    <p class="text-xs text-gray-500 font-bold">Preguntas Activas</p>
+                    <p class="text-xs text-gray-500 font-bold">Reactivos Validados</p>
                     <h3 id="stat-preguntas" class="text-2xl font-black text-secondary mt-1">0</h3>
                 </div>
             </div>
 
-            <!-- Pestañas de Navegación Admin -->
             <div class="flex flex-wrap gap-2 bg-white p-2 rounded-2xl shadow border border-gray-200">
                 <button onclick="mostrarTabAdmin('tab-usuarios')" class="px-4 py-2 rounded-xl text-xs font-bold bg-secondary text-white">
                     <i class="fa-solid fa-users mr-1"></i> Usuarios
@@ -115,7 +115,7 @@
                             <th class="py-2 px-3">ID</th>
                             <th class="py-2 px-3">Nombre</th>
                             <th class="py-2 px-3">Correo</th>
-                            <th class="py-2 px-3">Teléfono</th>
+                            <th class="py-2 px-3">Privacidad</th>
                             <th class="py-2 px-3">Estado</th>
                             <th class="py-2 px-3">Acción</th>
                         </tr>
@@ -126,14 +126,14 @@
 
             <!-- TAB 2: EMPRESAS -->
             <div id="tab-empresas" class="admin-tab hidden bg-white rounded-3xl shadow p-6 border border-gray-200 overflow-x-auto">
-                <h3 class="font-black text-base mb-4">Empresas Registradas (Auditoría RFC)</h3>
+                <h3 class="font-black text-base mb-4">Empresas Registradas (Verificación Documental RFC)</h3>
                 <table class="w-full text-left text-xs border-collapse">
                     <thead>
                         <tr class="border-b-2 border-gray-200 text-gray-500">
                             <th class="py-2 px-3">ID</th>
                             <th class="py-2 px-3">Empresa</th>
                             <th class="py-2 px-3">RFC</th>
-                            <th class="py-2 px-3">Correo</th>
+                            <th class="py-2 px-3">Estatus</th>
                             <th class="py-2 px-3">Sector</th>
                             <th class="py-2 px-3">Acción</th>
                         </tr>
@@ -148,11 +148,11 @@
                 <table class="w-full text-left text-xs border-collapse">
                     <thead>
                         <tr class="border-b-2 border-gray-200 text-gray-500">
-                            <th class="py-2 px-3">Candidato</th>
+                            <th class="py-2 px-3">Candidato / Intento</th>
                             <th class="py-2 px-3">Nota</th>
-                            <th class="py-2 px-3">Puesto Asignado</th>
+                            <th class="py-2 px-3">Perfil Asignado</th>
                             <th class="py-2 px-3">Estatus</th>
-                            <th class="py-2 px-3">Feedback Empresa</th>
+                            <th class="py-2 px-3">Criterio y Feedback</th>
                         </tr>
                     </thead>
                     <tbody id="tabla-admin-evaluaciones" class="divide-y divide-gray-100"></tbody>
@@ -162,9 +162,21 @@
             <!-- TAB 4: BANCO DE PREGUNTAS -->
             <div id="tab-preguntas" class="admin-tab hidden bg-white rounded-3xl shadow p-6 border border-gray-200 space-y-6">
                 <div>
-                    <h3 class="font-black text-base mb-2">Agregar Nueva Pregunta al Examen</h3>
+                    <h3 class="font-black text-base mb-2">Agregar Nuevo Reactivo Validado al Examen</h3>
                     <form id="form-nueva-pregunta" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs bg-gray-50 p-4 rounded-2xl border">
                         <input type="text" id="preg-texto" placeholder="Texto de la pregunta" class="md:col-span-2 border rounded-xl p-2.5" required>
+                        <select id="preg-categoria" class="border rounded-xl p-2.5 bg-white font-semibold">
+                            <option value="Desarrollo de Software">Competencia: Desarrollo de Software</option>
+                            <option value="Bases de Datos SQL">Competencia: Bases de Datos SQL</option>
+                            <option value="Seguridad y Calidad">Competencia: Seguridad y Calidad</option>
+                            <option value="Normativa Laboral (LFT)">Competencia: Normativa Laboral (LFT)</option>
+                            <option value="Comunicación y Equipo">Competencia: Comunicación y Equipo</option>
+                        </select>
+                        <select id="preg-dificultad" class="border rounded-xl p-2.5 bg-white font-semibold">
+                            <option value="Básico">Dificultad: Básico</option>
+                            <option value="Intermedio">Dificultad: Intermedio</option>
+                            <option value="Avanzado">Dificultad: Avanzado</option>
+                        </select>
                         <input type="text" id="preg-a" placeholder="Opción A" class="border rounded-xl p-2.5" required>
                         <input type="text" id="preg-b" placeholder="Opción B" class="border rounded-xl p-2.5" required>
                         <input type="text" id="preg-c" placeholder="Opción C" class="border rounded-xl p-2.5" required>
@@ -173,15 +185,15 @@
                             <option value="B">Respuesta Correcta: B</option>
                             <option value="C">Respuesta Correcta: C</option>
                         </select>
-                        <input type="text" id="preg-explicacion" placeholder="Explicación / Retroalimentación para el alumno" class="md:col-span-2 border rounded-xl p-2.5" required>
+                        <input type="text" id="preg-explicacion" placeholder="Explicación técnica / Retroalimentación para el candidato" class="md:col-span-2 border rounded-xl p-2.5" required>
                         <button type="submit" class="md:col-span-2 bg-primary text-white font-bold py-2.5 rounded-xl">
-                            Guardar Pregunta en Supabase
+                            Guardar Reactivo Validado en Supabase
                         </button>
                     </form>
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-sm mb-3">Preguntas Actuales en Base de Datos</h4>
+                    <h4 class="font-bold text-sm mb-3">Reactivos Activos en Base de Datos</h4>
                     <div id="lista-admin-preguntas" class="space-y-2 text-xs"></div>
                 </div>
             </div>

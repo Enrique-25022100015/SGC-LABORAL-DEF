@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SGC-LABORAL | Plataforma de Calidad Laboral</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#047857">
     <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/estilos.css">
 
     <script>
@@ -32,7 +32,7 @@
 
     <!-- HEADER FIJO -->
     <header class="fixed top-0 left-0 w-full bg-white shadow-md z-30 h-16 flex items-center justify-between px-4 md:px-8 border-b border-gray-200">
-        <button onclick="toggleDrawer()" class="text-secondary text-2xl p-2 rounded-lg hover:bg-gray-100 transition">
+        <button onclick="toggleDrawer()" aria-label="Abrir menú principal" class="text-secondary text-2xl p-2.5 rounded-lg hover:bg-gray-100 transition">
             <i class="fa-solid fa-bars"></i>
         </button>
         
@@ -41,23 +41,20 @@
                 <i class="fa-solid fa-circle-nodes text-xl text-primary"></i>
                 <h1 class="text-base font-black tracking-widest leading-none">SGC-LABORAL</h1>
             </div>
-            <span class="text-[9px] font-bold tracking-widest uppercase text-gray-500">ODS 8 • Portal Candidatos</span>
+            <span class="text-[10px] font-bold tracking-widest uppercase text-gray-600">ODS 8 • Portal Candidatos</span>
         </div>
 
-        <button id="header-user-btn" onclick="verificarPerfil()" class="text-secondary text-2xl p-2 rounded-lg hover:bg-gray-100 transition relative">
+        <button id="header-user-btn" onclick="verificarPerfil()" aria-label="Perfil de usuario" class="text-secondary text-2xl p-2.5 rounded-lg hover:bg-gray-100 transition relative">
             <i class="fa-solid fa-circle-user"></i>
         </button>
     </header>
 
     <!-- MENU LATERAL CANDIDATO -->
     <div id="drawer-overlay" onclick="toggleDrawer()" class="fixed inset-0 bg-black/60 z-40 hidden opacity-0 transition-opacity duration-300"></div>
-    <nav id="drawer" class="fixed top-0 left-0 h-full w-72 bg-secondary text-white z-50 transform -translate-x-full transition-transform duration-300 shadow-2xl flex flex-col pt-20 px-6">
-        <button id="btn-instalar-pwa" onclick="instalarPWA()" class="hidden mt-2 px-4 py-3 rounded-xl bg-accent hover:bg-amber-800 text-white font-bold transition flex items-center justify-center gap-2 shadow-lg">
-            <i class="fa-solid fa-download"></i> Instalar Aplicación
-            </button>
+    <nav id="drawer" aria-label="Navegación principal" class="fixed top-0 left-0 h-full w-72 bg-secondary text-white z-50 transform -translate-x-full transition-transform duration-300 shadow-2xl flex flex-col pt-20 px-6">
         <div class="border-b border-white/20 pb-4 mb-6">
-            <h2 class="text-lg font-bold">Menu Principal</h2>
-            <p id="drawer-user-status" class="text-xs text-gray-400 mt-1">Visitante (Sin iniciar sesión)</p>
+            <h2 class="text-lg font-bold">Menú Principal</h2>
+            <p id="drawer-user-status" class="text-xs text-gray-300 mt-1">Visitante (Sin iniciar sesión)</p>
         </div>
         
         <div class="flex flex-col gap-3 font-medium text-sm overflow-y-auto pb-8">
@@ -69,16 +66,14 @@
                 <i class="fa-solid fa-users"></i> Sobre Nosotros
             </button>
 
-            <!-- Solo visible cuando el candidato ya inició sesión -->
             <button id="nav-btn-perfil" onclick="navTo('view-perfil')" class="hidden text-left px-4 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition flex items-center gap-3">
-                <i class="fa-solid fa-id-card"></i> Perfil
+                <i class="fa-solid fa-id-card"></i> Mi Perfil y Resultados
             </button>
 
             <button onclick="navTo('view-info-examen')" class="text-left px-4 py-3 rounded-xl border border-dashed border-emerald-400/60 text-emerald-300 hover:bg-white/10 transition flex items-center gap-3">
-                <i class="fa-solid fa-graduation-cap"></i> Información para los Usuarios
+                <i class="fa-solid fa-graduation-cap"></i> Rúbrica y Evaluación
             </button>
 
-            <!-- Enlaces externos a otros portales (Se ocultan cuando el candidato inicia sesión) -->
             <div id="nav-portales-externos" class="flex flex-col gap-3 pt-2 border-t border-white/15">
                 <a href="empresas.html" class="text-left px-4 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition flex items-center gap-3">
                     <i class="fa-solid fa-building"></i> Portal Empresas
@@ -88,9 +83,12 @@
                 </a>
             </div>
 
-            <!-- Botón dinámico Iniciar Sesión / Mi Perfil -->
             <button id="drawer-login-btn" onclick="verificarPerfil()" class="mt-4 px-4 py-3 rounded-xl bg-primary hover:bg-emerald-700 text-white font-bold transition flex items-center justify-center gap-2 shadow-lg">
                 <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+            </button>
+
+            <button id="btn-instalar-pwa" onclick="instalarPWA()" class="hidden mt-1 px-4 py-3 rounded-xl bg-accent hover:bg-amber-800 text-white font-bold transition flex items-center justify-center gap-2 shadow-lg">
+                <i class="fa-solid fa-download"></i> Instalar Aplicación
             </button>
         </div>
     </nav>
@@ -102,11 +100,11 @@
         <section id="view-inicio" class="view-container active">
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200">
                 <div class="p-6 md:p-10 text-center">
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-secondary mb-1">¡Hola, futuro egresado!</h2>
-                    <h3 class="text-lg md:text-xl font-black text-secondary mb-6 tracking-wide">ENCUENTRA TU EMPLEO IDEAL</h3>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-secondary mb-1">¡Bienvenido a SGC-LABORAL!</h2>
+                    <h3 class="text-lg md:text-xl font-black text-secondary mb-6 tracking-wide">VINCULACIÓN LABORAL TRANSPARENTE</h3>
                     
                     <div class="w-full aspect-video md:h-64 border-2 border-gray-300 rounded-2xl mb-8 overflow-hidden bg-gray-100 flex items-center justify-center">
-                        <img src="assets/Trabajo.jpg" alt="ODS 8 Trabajo Decente" class="w-full h-full object-cover" onerror="if(!this.dataset.triedPng){this.dataset.triedPng='1';this.src='Trabajo.png';}else{this.classList.add('hidden');this.nextElementSibling.classList.remove('hidden');}">
+                        <img src="assets/Trabajo.jpg" alt="ODS 8 Trabajo Decente" class="w-full h-full object-cover" onerror="this.classList.add('hidden');this.nextElementSibling.classList.remove('hidden');">
                         <div class="hidden text-gray-500 p-4">
                             <i class="fa-solid fa-briefcase text-4xl text-primary mb-2"></i>
                             <p class="text-xs font-bold">Ecosistema de Calidad Laboral ODS 8</p>
@@ -114,11 +112,11 @@
                     </div>
                     
                     <div class="flex flex-col sm:flex-row gap-4 justify-center mb-4">
-                        <button onclick="verificarPerfil()" class="bg-primary hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-full shadow-lg active:scale-95 transition">
-                            Iniciar
+                        <button onclick="verificarPerfil()" class="bg-primary hover:bg-emerald-700 text-white font-bold py-3.5 px-8 rounded-full shadow-lg active:scale-95 transition">
+                            Comenzar Ahora
                         </button>
-                        <button onclick="navTo('view-sobre-nosotros')" class="bg-accent hover:bg-amber-800 text-white font-bold py-3 px-8 rounded-full shadow-lg active:scale-95 transition">
-                            Más Información
+                        <button onclick="navTo('view-info-examen')" class="bg-accent hover:bg-amber-800 text-white font-bold py-3.5 px-8 rounded-full shadow-lg active:scale-95 transition">
+                            Ver Rúbrica de Evaluación
                         </button>
                     </div>
                 </div>
@@ -126,9 +124,9 @@
                 <!-- INTRODUCCIÓN -->
                 <div class="bg-secondary text-white p-6 md:p-8 text-xs md:text-sm text-justify leading-relaxed tracking-wide">
                     <h4 class="font-bold text-base md:text-lg text-center mb-4 text-emerald-400">Una Breve Introducción SGC-LABORAL</h4>
-                    <p class="mb-3">Esta página es un espacio para la gestión de calidad laboral juvenil. Funciona como un ecosistema tecnológico diseñado para mitigar la informalidad y los malos emparejamientos de empleo, automatizando la auditoría de vacantes mediante contratos digitales y garantizando el cumplimiento de los indicadores del ODS 8 en México.</p>
-                    <p class="mb-3">Nuestra prioridad es el empoderamiento del egresado a través de un sistema de Evaluación Progresiva del Nivel 1 al 10 — diseñado para certificar habilidades teóricas, prácticas y psicométricas de forma segura y transparente.</p>
-                    <p class="font-semibold text-emerald-300">Para asegurar la calidad de las ofertas, el software implementa un riguroso Filtro de Trabajo Decente y Bloqueo Salarial, el cual audita la identidad legal (RFC), restringe sueldos menores al mínimo y exige el desglose forzado de prestaciones de ley.</p>
+                    <p class="mb-3">Esta plataforma es un ecosistema tecnológico diseñado para mitigar la informalidad laboral y promover oportunidades inclusivas alineadas con el Objetivo de Desarrollo Sostenible 8 (Trabajo Decente y Crecimiento Económico).</p>
+                    <p class="mb-3">Evaluamos las competencias técnicas y transversales de cada aspirante otorgando una <strong>Constancia de Evaluación Interna</strong> con retroalimentación detallada por área, facilitando su vinculación con PyMEs auditadas.</p>
+                    <p class="font-semibold text-emerald-300">Las ofertas publicadas transparentan sueldo mensual neto, jornada y prestaciones de ley conforme a la Ley Federal del Trabajo, protegiendo la privacidad de los datos personales del candidato.</p>
                 </div>
             </div>
         </section>
@@ -138,92 +136,142 @@
             <div class="bg-white rounded-3xl shadow-xl p-6 md:p-10 text-center border border-gray-200">
                 <h2 class="text-2xl font-bold text-secondary mb-4">¿Quiénes Somos?</h2>
                 <p class="text-xs md:text-sm text-gray-700 mb-4 text-justify leading-relaxed">
-                    ¡Hola a todos! Bienvenidos a SGC-LABORAL, un ecosistema tecnológico nacido en la <strong>Universidad Politécnica de Pénjamo</strong>. Actualmente funcionamos como una plataforma de Gestión de Calidad de Software. El propósito central es mitigar la informalidad y la precariedad laboral en México, automatizando procesos bajo el marco del Trabajo Decente y el ODS 8.
+                    Bienvenidos a SGC-LABORAL, un proyecto académico y tecnológico desarrollado en la <strong>Universidad Politécnica de Pénjamo</strong>. Nuestro propósito es reducir la precariedad laboral mediante evaluaciones objetivas, transparencia salarial y vinculación justa para jóvenes egresados y sectores vulnerables.
                 </p>
                 <p class="text-xs md:text-sm font-bold text-primary italic mb-6">
-                    "¡Transformando el esfuerzo académico en trayectorias laborales dignas, seguras y de calidad!"<br>- Equipo SGC-Laboral
+                    "Transformando el talento en oportunidades laborales dignas y transparentes."<br>- Equipo TrabajoLibre
                 </p>
 
                 <div class="w-full aspect-video md:h-60 border-2 border-gray-300 rounded-2xl mb-6 overflow-hidden bg-gray-100 flex items-center justify-center">
-                    <img src="assets/trabajo2.jpg" alt="Equipo SGC-Laboral UPP" class="w-full h-full object-cover" onerror="if(!this.dataset.triedPng){this.dataset.triedPng='1';this.src='trabajo2.png';}else{this.classList.add('hidden');this.nextElementSibling.classList.remove('hidden');}">
+                    <img src="assets/trabajo2.jpg" alt="Equipo SGC-Laboral UPP" class="w-full h-full object-cover" onerror="this.classList.add('hidden');this.nextElementSibling.classList.remove('hidden');">
                     <div class="hidden text-gray-500 p-4">
                         <i class="fa-solid fa-graduation-cap text-4xl text-primary mb-2"></i>
                         <p class="text-xs font-bold">Universidad Politécnica de Pénjamo • SGC-LABORAL</p>
                     </div>
                 </div>
 
-                <button onclick="navTo('view-inicio')" class="bg-secondary hover:bg-slate-800 text-white font-bold py-2.5 px-6 rounded-full text-xs transition">
+                <button onclick="navTo('view-inicio')" class="bg-secondary hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-full text-xs transition">
                     Volver al Inicio
                 </button>
             </div>
         </section>
 
-        <!-- 3. VISTA INFORMACIÓN PARA LOS USUARIOS -->
+        <!-- 3. VISTA RÚBRICA Y REGLAS DE EVALUACIÓN -->
         <section id="view-info-examen" class="view-container">
             <div class="bg-white rounded-3xl shadow-xl p-6 md:p-10 text-secondary border border-gray-200 space-y-6">
                 <div class="text-center">
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-primary">Lineamientos de Certificación</span>
+                    <span class="text-[11px] font-bold uppercase tracking-widest text-primary">Metodología y Transparencia</span>
                     <h2 class="text-xl md:text-2xl font-black mt-1 leading-snug">
-                        Este espacio es para especializarte y desarrollar tus niveles de comprensión y aprendizaje
+                        Rúbrica de Competencias y Reglas del Cuestionario
                     </h2>
                 </div>
 
-                <div class="bg-emerald-50 border-l-4 border-primary p-4 rounded-r-xl">
-                    <h3 class="font-bold text-sm md:text-base text-primary mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-circle-check"></i> Lo que SÍ está permitido y es obligatorio:
+                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-4 space-y-3">
+                    <h3 class="font-bold text-sm text-secondary flex items-center gap-2">
+                        <i class="fa-solid fa-table-list text-primary"></i> Criterios de Puntuación y Niveles de Dominio
                     </h3>
-                    <ul class="text-xs md:text-sm text-gray-700 list-disc pl-5 space-y-1.5">
-                        <li>Mantener la cámara y el micrófono encendidos durante toda la evaluación.</li>
-                        <li>Contar con una hoja blanca y lápiz visibles en todo momento para cálculos o notas.</li>
-                        <li>Tener a la mano una identificación oficial vigente para validar tu identidad.</li>
-                        <li>Estar en un espacio iluminado, silencioso y sin terceras personas alrededor.</li>
-                    </ul>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead>
+                                <tr class="border-b border-gray-300 text-gray-600">
+                                    <th class="py-2 px-2">Puntaje</th>
+                                    <th class="py-2 px-2">Nivel de Dominio</th>
+                                    <th class="py-2 px-2">Perfil Recomendado</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="py-2 px-2 font-bold text-primary">8 a 10</td>
+                                    <td class="py-2 px-2 font-semibold">Avanzado</td>
+                                    <td class="py-2 px-2">Desarrollador / Analista Nivel Avanzado</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-2 font-bold text-accent">6 a 7</td>
+                                    <td class="py-2 px-2 font-semibold">Intermedio</td>
+                                    <td class="py-2 px-2">Analista QA y Soporte Nivel Intermedio</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-2 font-bold text-gray-600">0 a 5</td>
+                                    <td class="py-2 px-2 font-semibold">Inicial</td>
+                                    <td class="py-2 px-2">Auxiliar Técnico Nivel Inicial (Requiere refuerzo)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-[11px] text-gray-600">
+                        <strong>Reglas de intentos:</strong> Cada candidato dispone de un máximo de <strong>3 intentos</strong>. La calificación se calcula de forma determinista sobre 10 puntos y genera retroalimentación por competencia evaluada.
+                    </p>
                 </div>
 
-                <div class="bg-red-50 border-l-4 border-danger p-4 rounded-r-xl">
-                    <h3 class="font-bold text-sm md:text-base text-danger mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-circle-xmark"></i> Lo que NO está permitido hacer:
+                <div class="bg-emerald-50 border-l-4 border-primary p-4 rounded-r-xl space-y-2">
+                    <h3 class="font-bold text-sm text-primary flex items-center gap-2">
+                        <i class="fa-solid fa-shield-check"></i> Política de Integridad y Privacidad
                     </h3>
-                    <ul class="text-xs md:text-sm text-gray-700 list-disc pl-5 space-y-1.5">
-                        <li>Abrir otras pestañas, ventanas o buscadores durante el cuestionario.</li>
-                        <li>Consultar teléfonos celulares, apuntes previos, libros o asistentes externos.</li>
-                        <li>Recibir ayuda verbal o escrita de otras personas durante la prueba.</li>
-                        <li>Apagar la cámara, silenciar el micrófono o abandonar el encuadre sin autorización.</li>
-                    </ul>
+                    <p class="text-xs text-gray-700 leading-relaxed">
+                        Para proteger tu privacidad y garantizar accesibilidad en dispositivos móviles, <strong>no exigimos acceso a cámara ni micrófono</strong>. El sistema registra únicamente el tiempo de duración de la prueba y el número de intento.
+                    </p>
+                    <label class="flex items-start gap-2.5 pt-2 cursor-pointer text-xs font-semibold text-secondary">
+                        <input type="checkbox" id="check-honestidad-examen" class="mt-0.5 w-4 h-4 accent-primary">
+                        <span>Acepto realizar esta evaluación de manera individual y honesta sin ayuda externa.</span>
+                    </label>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                     <button onclick="irAlExamen()" class="bg-primary hover:bg-emerald-700 text-white font-bold py-3.5 px-8 rounded-full shadow-lg active:scale-95 transition flex items-center justify-center gap-2 text-sm">
-                        <i class="fa-solid fa-play"></i> Aceptar Reglas e Iniciar Examen
+                        <i class="fa-solid fa-play"></i> Iniciar Evaluación Ahora
                     </button>
-                    <button onclick="navTo('view-inicio')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3.5 px-6 rounded-full text-xs transition">
+                    <button onclick="navTo('view-inicio')" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3.5 px-6 rounded-full text-xs transition">
                         Volver
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- 4. VISTA LOGIN / REGISTRO CANDIDATO -->
+        <!-- 4. VISTA LOGIN / REGISTRO SEPARADOS -->
         <section id="view-login" class="view-container">
-            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-10 max-w-md mx-auto border border-gray-200">
-                <h2 class="text-2xl font-black text-center text-secondary mb-6">ACCESO CANDIDATOS</h2>
+            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 max-w-md mx-auto border border-gray-200">
+                <div class="grid grid-cols-2 gap-2 bg-gray-100 p-1.5 rounded-2xl mb-6">
+                    <button type="button" id="tab-btn-login" onclick="cambiarTabAuth('login')" class="py-2.5 rounded-xl text-xs font-black bg-secondary text-white transition">
+                        Iniciar Sesión
+                    </button>
+                    <button type="button" id="tab-btn-registro" onclick="cambiarTabAuth('registro')" class="py-2.5 rounded-xl text-xs font-black text-gray-600 hover:text-secondary transition">
+                        Crear Cuenta
+                    </button>
+                </div>
 
-                <form id="form-login-candidato" class="flex flex-col gap-4">
+                <!-- FORMULARIO 1: INICIAR SESIÓN -->
+                <form id="form-iniciar-sesion" class="flex flex-col gap-4">
+                    <h2 class="text-xl font-black text-center text-secondary">Ingresa a tu Cuenta</h2>
                     <div>
-                        <label class="text-xs font-bold text-gray-600 ml-1">Nombre completo</label>
-                        <input type="text" id="login-nombre" placeholder="Ej. Ian Carlos Guajardo" class="w-full border-2 border-gray-300 rounded-xl p-3 text-sm focus:border-primary focus:outline-none" required>
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-gray-600 ml-1">Correo electrónico</label>
+                        <label for="login-correo" class="text-xs font-bold text-gray-700 ml-1">Correo electrónico</label>
                         <input type="email" id="login-correo" placeholder="correo@ejemplo.com" class="w-full border-2 border-gray-300 rounded-xl p-3 text-sm focus:border-primary focus:outline-none" required>
                     </div>
                     <div>
-                        <label class="text-xs font-bold text-gray-600 ml-1">Contraseña</label>
+                        <label for="login-password" class="text-xs font-bold text-gray-700 ml-1">Contraseña</label>
                         <input type="password" id="login-password" placeholder="••••••••" class="w-full border-2 border-gray-300 rounded-xl p-3 text-sm focus:border-primary focus:outline-none" required>
                     </div>
+                    <button type="submit" id="btn-submit-login" class="bg-secondary hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl shadow-md mt-2 transition text-sm">
+                        Entrar a Mi Perfil
+                    </button>
+                </form>
 
-                    <button type="submit" id="btn-login" class="bg-primary hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-md mt-2 transition text-sm">
-                        Entrar / Registrarme
+                <!-- FORMULARIO 2: CREAR CUENTA -->
+                <form id="form-crear-cuenta" class="hidden flex-col gap-3.5">
+                    <h2 class="text-xl font-black text-center text-primary">Registro de Nuevo Candidato</h2>
+                    <div>
+                        <label for="reg-nombre" class="text-xs font-bold text-gray-700 ml-1">Nombre completo</label>
+                        <input type="text" id="reg-nombre" placeholder="Ej. Enrique Pérez" class="w-full border-2 border-gray-300 rounded-xl p-3 text-sm focus:border-primary focus:outline-none" required>
+                    </div>
+                    <div>
+                        <label for="reg-correo" class="text-xs font-bold text-gray-700 ml-1">Correo electrónico</label>
+                        <input type="email" id="reg-correo" placeholder="correo@ejemplo.com" class="w-full border-2 border-gray-300 rounded-xl p-3 text-sm focus:border-primary focus:outline-none" required>
+                    </div>
+                    <div>
+                        <label for="reg-password" class="text-xs font-bold text-gray-700 ml-1">Crea una contraseña (mín. 6 caracteres)</label>
+                        <input type="password" id="reg-password" minlength="6" placeholder="••••••••" class="w-full border-2 border-gray-300 rounded-xl p-3 text-sm focus:border-primary focus:outline-none" required>
+                    </div>
+                    <button type="submit" id="btn-submit-registro" class="bg-primary hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-md mt-2 transition text-sm">
+                        Crear Cuenta Nueva
                     </button>
                 </form>
             </div>
@@ -239,78 +287,133 @@
                             <i class="fa-solid fa-user-graduate"></i>
                         </div>
                         <div>
-                            <p class="text-xs text-emerald-200">Candidato Certificado</p>
+                            <p class="text-xs text-emerald-100">Constancia de Evaluación Interna • ODS 8</p>
                             <h2 id="perfil-titulo-nombre" class="text-xl font-black">Usuario</h2>
                         </div>
                     </div>
-                    <button onclick="cerrarSesion()" class="bg-white/20 hover:bg-white/30 text-xs font-bold py-2 px-4 rounded-xl transition">
+                    <button onclick="cerrarSesion()" class="bg-white/20 hover:bg-white/30 text-xs font-bold py-2.5 px-4 rounded-xl transition">
                         Cerrar Sesión
                     </button>
                 </div>
 
-                <!-- NOTIFICACIONES Y FEEDBACK -->
+                <!-- HISTORIAL, NOTIFICACIONES Y CONTRATO DINÁMICO -->
                 <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-5">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="font-black text-sm text-secondary flex items-center gap-2">
-                            <i class="fa-solid fa-bell text-primary"></i> Resultados y Notificaciones de Contratación
+                            <i class="fa-solid fa-clipboard-list text-primary"></i> Historial de Intentos y Postulaciones
                         </h3>
                         <button onclick="cargarNotificacionesUsuario()" class="text-xs text-primary font-bold hover:underline">
                             <i class="fa-solid fa-rotate"></i> Actualizar
                         </button>
                     </div>
                     <div id="contenedor-notificaciones-perfil" class="space-y-3 text-xs">
-                        <p class="text-gray-500 italic">Cargando información...</p>
+                        <p class="text-gray-600 italic">Cargando historial...</p>
                     </div>
                 </div>
 
-                <!-- FORMULARIO EDITABLE -->
+                <!-- FORMULARIO EDITABLE AMPLIADO -->
                 <form id="form-actualizar-perfil" class="space-y-4">
-                    <h3 class="font-bold text-secondary text-sm border-b pb-2">Modificar Información Personal</h3>
+                    <h3 class="font-bold text-secondary text-sm border-b pb-2">Información Personal, Académica y Privacidad</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                         <div>
-                            <label class="font-bold block mb-1 text-gray-600">Nombre(s)</label>
+                            <label class="font-bold block mb-1 text-gray-700">Nombre(s)</label>
                             <input type="text" id="edit-nombre" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold" required>
                         </div>
                         <div>
-                            <label class="font-bold block mb-1 text-gray-600">Apellidos</label>
+                            <label class="font-bold block mb-1 text-gray-700">Apellidos</label>
                             <input type="text" id="edit-apellidos" placeholder="Tus apellidos" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
                         </div>
                         <div>
-                            <label class="font-bold block mb-1 text-gray-600">Correo electrónico</label>
-                            <input type="email" id="edit-correo" class="w-full bg-gray-200 border border-gray-300 rounded-xl p-3 text-gray-500" readonly>
+                            <label class="font-bold block mb-1 text-gray-700">Correo electrónico</label>
+                            <input type="email" id="edit-correo" class="w-full bg-gray-200 border border-gray-300 rounded-xl p-3 text-gray-600" readonly>
                         </div>
                         <div>
-                            <label class="font-bold block mb-1 text-gray-600">Teléfono de contacto</label>
+                            <label class="font-bold block mb-1 text-gray-700">Teléfono de contacto</label>
                             <input type="text" id="edit-telefono" placeholder="+52 469 000 0000" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
                         </div>
                         <div>
-                            <label class="font-bold block mb-1 text-gray-600">País</label>
+                            <label class="font-bold block mb-1 text-gray-700">País</label>
                             <input type="text" id="edit-pais" value="México" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
                         </div>
                         <div>
-                            <label class="font-bold block mb-1 text-gray-600">Estado / Provincia</label>
+                            <label class="font-bold block mb-1 text-gray-700">Estado / Provincia</label>
                             <input type="text" id="edit-estado" value="Guanajuato" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
+                        </div>
+                        <div>
+                            <label class="font-bold block mb-1 text-gray-700">Último Grado de Estudios / Carrera</label>
+                            <input type="text" id="edit-escolaridad" placeholder="Ej. Ing. en Tecnologías de la Información" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
+                        </div>
+                        <div>
+                            <label class="font-bold block mb-1 text-gray-700">Enlace a Evidencias / Portafolio / CV (Opcional)</label>
+                            <input type="url" id="edit-portafolio" placeholder="https://drive.google.com/..." class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="font-bold block mb-1 text-gray-700">Habilidades Técnicas y Blandas</label>
+                            <input type="text" id="edit-habilidades" placeholder="Ej. JavaScript, SQL, Trabajo en equipo, Atención al cliente" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="font-bold block mb-1 text-gray-700">Experiencia Laboral o Proyectos Académicos</label>
+                            <textarea id="edit-experiencia" rows="2" placeholder="Describe brevemente tu experiencia o proyectos realizados..." class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold"></textarea>
                         </div>
                     </div>
 
+                    <!-- Consentimiento de Privacidad (Derechos ARCO) -->
+                    <div class="bg-gray-50 border border-gray-300 rounded-2xl p-4">
+                        <label class="flex items-start gap-3 cursor-pointer text-xs">
+                            <input type="checkbox" id="edit-visible-empresas" class="mt-0.5 w-4 h-4 accent-primary">
+                            <span class="text-gray-700">
+                                <strong>Consentimiento de Privacidad (Derechos ARCO):</strong> Autorizo que las empresas verificadas puedan visualizar mi perfil profesional y resultados de evaluación. Mi correo y teléfono permanecerán ocultos hasta que acepte una oferta.
+                            </span>
+                        </label>
+                    </div>
+
                     <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                        <button type="submit" id="btn-guardar-perfil" class="bg-secondary hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl shadow transition text-xs flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+                        <button type="submit" id="btn-guardar-perfil" class="bg-secondary hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl shadow transition text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-floppy-disk"></i> Guardar Perfil y Privacidad
                         </button>
-                        <button type="button" onclick="navTo('view-info-examen')" class="bg-primary hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl shadow transition text-xs flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-file-pen"></i> Contestar Evaluación Técnica
+                        <button type="button" onclick="navTo('view-info-examen')" class="bg-primary hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow transition text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-pen"></i> Presentar Evaluación Técnica
                         </button>
                     </div>
                 </form>
             </div>
         </section>
 
-        <!-- 6. VISTA EXAMEN REAL -->
+ <!-- 6. VISTA EXAMEN PROGRESIVO (NIVELES 1 AL 10 - SOFTWARE Y EMPLEABILIDAD) -->
         <section id="view-examen" class="view-container">
-            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-200">
-                <div class="border-b pb-4 mb-6">
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-primary">Evaluación Certificada ODS 8</span>
-                    <h2 class="text-xl md:text-2xl font-black text-secondary">Cuestionario de Competencias Laborales</h2>
+            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-200 space-y-6">
+                <div class="border-b pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-primary">Evaluación Progresiva por Competencias</span>
+                        <h2 class="text-xl md:text-2xl font-black text-secondary">Cuestionario Técnico</h2>
+                    </div>
+                    <span id="badge-intento-actual" class="bg-secondary text-white text-xs font-bold px-3 py-1.5 rounded-full self-start">Intento 1/3</span>
+                </div>
+
+                <!-- SELECTOR DE ÁREA Y NIVEL (1 AL 10) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-gray-50 p-4 rounded-2xl border border-gray-200 text-xs">
+                    <div>
+                        <label class="font-bold text-gray-700 block mb-1">Área de Evaluación</label>
+                        <select id="select-area-examen" onchange="cargarPreguntasNivel()" class="w-full border border-gray-300 rounded-xl p-2.5 bg-white font-bold text-secondary">
+                            <option value="Desarrollo de Software">Desarrollo de Software (Niveles 1-10)</option>
+                            <option value="Empleabilidad General">Empleabilidad General y LFT (Niveles 1-10)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="font-bold text-gray-700 block mb-1">Nivel a Presentar (Aprobar ≥ 8.0)</label>
+                        <select id="select-nivel-examen" onchange="cargarPreguntasNivel()" class="w-full border border-gray-300 rounded-xl p-2.5 bg-white font-bold text-primary">
+                            <option value="1">Nivel 1 (Inicial)</option>
+                            <option value="2">Nivel 2</option>
+                            <option value="3">Nivel 3</option>
+                            <option value="4">Nivel 4 (Intermedio)</option>
+                            <option value="5">Nivel 5</option>
+                            <option value="6">Nivel 6</option>
+                            <option value="7">Nivel 7</option>
+                            <option value="8">Nivel 8 (Avanzado)</option>
+                            <option value="9">Nivel 9</option>
+                            <option value="10">Nivel 10 (Experto)</option>
+                        </select>
+                    </div>
                 </div>
 
                 <form id="form-examen-real" class="space-y-6">
@@ -319,53 +422,68 @@
                     </div>
 
                     <button type="submit" id="btn-enviar-examen" class="w-full bg-primary hover:bg-emerald-700 text-white font-bold py-4 rounded-2xl shadow-lg transition text-sm">
-                        Finalizar y Obtener Calificación con Retroalimentación
+                        Finalizar y Validar Calificación en Servidor
                     </button>
                 </form>
 
-                <div id="resultado-examen-box" class="hidden mt-8 bg-gray-50 border-2 border-primary rounded-2xl p-6 space-y-4">
+                <div id="resultado-examen-box" class="hidden mt-6 bg-gray-50 border-2 border-primary rounded-2xl p-6 space-y-4">
                     <div class="flex items-center justify-between border-b pb-3">
                         <div>
-                            <p class="text-xs font-bold text-gray-500">CALIFICACIÓN REAL OBTENIDA</p>
+                            <p class="text-xs font-bold text-gray-500">CALIFICACIÓN (<span id="res-intento-num">Intento 1</span>)</p>
                             <h3 class="text-3xl font-black text-primary"><span id="res-puntaje">0</span> / 10</h3>
                         </div>
                         <div class="text-right">
-                            <p class="text-xs font-bold text-gray-500">PERFIL RECOMENDADO</p>
+                            <p class="text-xs font-bold text-gray-500">PERFIL ACREDITADO</p>
                             <span id="res-puesto" class="inline-block bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full mt-1">---</span>
                         </div>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-xs uppercase text-secondary mb-2">Retroalimentación de tu Evaluación:</h4>
+                        <h4 class="font-bold text-xs uppercase text-secondary mb-2">Retroalimentación por Reactivo:</h4>
                         <div id="res-feedback-detalle" class="text-xs text-gray-700 space-y-2 bg-white p-4 rounded-xl border"></div>
                     </div>
 
-                    <button onclick="navTo('view-perfil')" class="w-full bg-secondary text-white font-bold py-3 rounded-xl text-xs">
-                        Volver a Mi Perfil
-                    </button>
+                  <!-- BOTONES DE ACCIÓN SIN REGRESAR AL INICIO -->
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <button type="button" id="btn-siguiente-nivel" onclick="avanzarSiguienteNivel()" class="hidden flex-1 bg-primary hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs shadow">
+                            Avanzar al Siguiente Nivel <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                        <button type="button" id="btn-reintentar-nivel" onclick="cargarPreguntasNivel()" class="flex-1 bg-accent hover:bg-amber-800 text-white font-bold py-3.5 rounded-xl text-xs shadow">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Realizar Otro Intento en este Nivel
+                        </button>
+                        <button type="button" onclick="navTo('view-perfil')" class="flex-1 bg-secondary hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl text-xs">
+                            Ver Historial en Mi Perfil
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
 
     </main>
-
-    <!-- MODAL LEER CONTRATO -->
+    <!-- MODAL CONTRATO DIGITAL DINÁMICO CON FUNDAMENTO LFT -->
     <div id="modal-contrato" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl space-y-4">
+        <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="text-lg font-black text-secondary">Contrato Digital Auditado (ODS 8)</h3>
-                <button onclick="document.getElementById('modal-contrato').classList.add('hidden')" class="text-xl font-bold text-gray-400">&times;</button>
+                <h3 class="text-lg font-black text-secondary">Contrato Individual de Trabajo (ODS 8)</h3>
+                <button onclick="document.getElementById('modal-contrato').classList.add('hidden')" class="text-2xl font-bold text-gray-500 px-2">&times;</button>
             </div>
             <div class="bg-emerald-50 border border-primary p-3 rounded-xl text-xs text-primary font-semibold">
-                <i class="fa-solid fa-shield-check mr-1"></i> Validado: Cumple salario mínimo legal, IMSS, aguinaldo y vacaciones.
+                <i class="fa-solid fa-shield-check mr-1"></i> Auditado conforme a los Arts. 60, 61, 76, 80, 85, 87 y 90 de la Ley Federal del Trabajo.
             </div>
-            <div class="text-xs text-gray-700 space-y-1 bg-gray-100 p-4 rounded-xl">
-                <p><strong>Puesto:</strong> <span id="modal-puesto-txt">---</span></p>
-                <p><strong>Sueldo Base Mensual:</strong> $9,500.00 MXN Netos</p>
-                <p><strong>Jornada:</strong> 40 horas semanales</p>
+            <div class="text-xs text-gray-800 space-y-2 bg-gray-100 p-4 rounded-xl border">
+                <p><strong>Trabajador(a):</strong> <span id="modal-candidato-txt">---</span></p>
+                <p><strong>Empresa Contratante:</strong> <span id="modal-empresa-txt">---</span></p>
+                <p><strong>Puesto Asignado:</strong> <span id="modal-puesto-txt">---</span></p>
+                <p><strong>Sueldo Mensual Neto (Arts. 85 y 90 LFT):</strong> <span id="modal-sueldo-txt">---</span></p>
+                <p><strong>Jornada Laboral (Arts. 60 y 61 LFT):</strong> <span id="modal-jornada-txt">---</span></p>
+                <p><strong>Prestaciones de Ley (Arts. 76, 80 y 87 LFT):</strong> <span id="modal-prestaciones-txt">---</span></p>
+                <p><strong>Estatus de Firma:</strong> <span id="modal-estatus-firma" class="font-bold text-primary">Pendiente</span></p>
             </div>
-            <button onclick="alert('¡Contrato firmado digitalmente!'); document.getElementById('modal-contrato').classList.add('hidden');" class="w-full bg-primary text-white font-bold py-3 rounded-xl text-xs">
-                Firmar Contrato Digitalmente
+            <p class="text-[11px] text-gray-600 text-justify leading-relaxed">
+                <strong>Cláusula Legal:</strong> Ambas partes manifiestan su conformidad con las condiciones establecidas. El patrón garantiza el alta obligatoria ante el IMSS desde el primer día de labores (Art. 15 LSS), aguinaldo mínimo de 15 días anuales, 12 días de vacaciones pagadas al primer año y 25 % de prima vacacional.
+            </p>
+            <button id="btn-firmar-contrato" onclick="firmarContratoDigital()" class="w-full bg-primary hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs">
+                Aceptar y Firmar Contrato Digitalmente
             </button>
         </div>
     </div>

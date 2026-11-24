@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SGC-LABORAL | Portal de Empresas (PyMEs)</title>
     
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#047857">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="manifest" href="manifest.json"> <meta name="theme-color" content="#047857">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/estilos.css">
 
     <script>
@@ -29,7 +31,7 @@
 
     <!-- HEADER EMPRESAS -->
     <header class="fixed top-0 left-0 w-full bg-secondary text-white shadow-md z-30 h-16 flex items-center justify-between px-4 md:px-8">
-        <button onclick="toggleDrawer()" class="text-white text-2xl p-2 rounded-lg hover:bg-white/10 transition">
+        <button onclick="toggleDrawer()" aria-label="Menú empresas" class="text-white text-2xl p-2 rounded-lg hover:bg-white/10 transition">
             <i class="fa-solid fa-bars"></i>
         </button>
         
@@ -41,7 +43,7 @@
             <span class="text-[9px] font-bold tracking-widest uppercase text-emerald-300">Reclutamiento Auditado ODS 8</span>
         </div>
 
-        <button onclick="verificarEmpresa()" class="text-emerald-400 text-2xl p-2 rounded-lg hover:bg-white/10 transition">
+        <button onclick="verificarEmpresa()" aria-label="Perfil empresa" class="text-emerald-400 text-2xl p-2 rounded-lg hover:bg-white/10 transition">
             <i class="fa-solid fa-building-user"></i>
         </button>
     </header>
@@ -64,7 +66,7 @@
             </button>
 
             <button id="nav-emp-perfil" onclick="navTo('emp-view-perfil')" class="hidden text-left px-4 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition flex items-center gap-3">
-                <i class="fa-solid fa-building"></i> Perfil de Empresa
+                <i class="fa-solid fa-building"></i> Perfil y Oferta Laboral
             </button>
 
             <button onclick="navTo('emp-view-sobre-nosotros')" class="text-left px-4 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition flex items-center gap-3">
@@ -89,9 +91,9 @@
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200">
                 <div class="p-6 md:p-10 text-center">
                     <span class="bg-emerald-100 text-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase">Programa PyMEs ODS 8</span>
-                    <h2 class="text-2xl md:text-3xl font-black text-secondary mt-3 mb-2">Contrata Talento Joven Certificado</h2>
+                    <h2 class="text-2xl md:text-3xl font-black text-secondary mt-3 mb-2">Contrata Talento Joven Evaluado</h2>
                     <p class="text-xs md:text-sm text-gray-600 max-w-xl mx-auto mb-6">
-                        Accede a candidatos evaluados técnicamente del Nivel 1 al 10, con diagnóstico detallado de competencias y respaldados por contratos formales auditados bajo la Ley Federal del Trabajo.
+                        Accede a candidatos evaluados técnicamente sobre 10 puntos, con diagnóstico detallado de competencias y respaldados por contratos formales auditados bajo la Ley Federal del Trabajo.
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-3 justify-center">
@@ -109,7 +111,6 @@
         <!-- 2. LOGIN / REGISTRO EMPRESA -->
         <section id="emp-view-login" class="view-container">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Iniciar Sesión Empresa -->
                 <div class="bg-white rounded-3xl shadow-xl p-6 border border-gray-200">
                     <h2 class="text-lg font-black text-secondary mb-4">Iniciar Sesión Empresa</h2>
                     <form id="form-login-empresa" class="space-y-4 text-xs">
@@ -127,12 +128,11 @@
                     </form>
                 </div>
 
-                <!-- Registrar Nueva Empresa -->
                 <div class="bg-white rounded-3xl shadow-xl p-6 border border-gray-200">
                     <h2 class="text-lg font-black text-primary mb-4">Registrar Nueva Empresa</h2>
                     <form id="form-registro-empresa" class="space-y-3 text-xs">
                         <input type="text" id="emp-nombre" placeholder="Nombre de la Empresa" class="w-full border-2 border-gray-300 rounded-xl p-3" required>
-                        <input type="text" id="emp-rfc" placeholder="RFC (Ej. STB260101ABC)" class="w-full border-2 border-gray-300 rounded-xl p-3 uppercase" required>
+                        <input type="text" id="emp-rfc" placeholder="RFC (Ej. STB260101ABC)" minlength="12" maxlength="13" class="w-full border-2 border-gray-300 rounded-xl p-3 uppercase" required>
                         <input type="email" id="emp-correo" placeholder="Correo Institucional" class="w-full border-2 border-gray-300 rounded-xl p-3" required>
                         <input type="password" id="emp-pass" placeholder="Crea una contraseña" class="w-full border-2 border-gray-300 rounded-xl p-3" required>
                         <div class="grid grid-cols-2 gap-2">
@@ -151,7 +151,7 @@
             </div>
         </section>
 
-        <!-- 3. PERFIL DE LA EMPRESA -->
+        <!-- 3. PERFIL DE LA EMPRESA Y FILTRO DE TRABAJO DECENTE -->
         <section id="emp-view-perfil" class="view-container">
             <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-200 space-y-6">
                 <div class="bg-secondary text-white rounded-2xl p-5 flex items-center justify-between">
@@ -160,7 +160,7 @@
                             <i class="fa-solid fa-building"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] uppercase font-bold text-emerald-400">Empresa Verificada • Sello ODS 8</span>
+                            <span id="badge-verificacion-emp" class="text-[10px] uppercase font-bold text-amber-400">Estatus: Pendiente de Auditoría</span>
                             <h2 id="perfil-emp-titulo" class="text-xl font-black">Nombre Empresa</h2>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                 </div>
 
                 <form id="form-editar-empresa" class="space-y-4 text-xs">
-                    <h3 class="font-bold text-secondary text-sm border-b pb-2">Datos Corporativos de la Empresa</h3>
+                    <h3 class="font-bold text-secondary text-sm border-b pb-2">Datos Corporativos y Condiciones de Oferta (Filtro LFT)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="font-bold block mb-1 text-gray-600">Razón Social / Nombre Comercial</label>
@@ -188,7 +188,7 @@
                             <label class="font-bold block mb-1 text-gray-600">Sector / Giro</label>
                             <input type="text" id="edit-emp-sector" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
                         </div>
-                        <div class="md:col-span-2">
+                        <div>
                             <label class="font-bold block mb-1 text-gray-600">Tamaño de la Organización</label>
                             <select id="edit-emp-tamano" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
                                 <option>1 - 10 empleados</option>
@@ -196,11 +196,29 @@
                                 <option>Más de 50 empleados</option>
                             </select>
                         </div>
+                        <div>
+                            <label class="font-bold block mb-1 text-gray-600">Sueldo Base Mensual Neto (Mínimo legal: $8,364 MXN)</label>
+                            <input type="number" id="edit-emp-sueldo" min="8364" value="9500" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold" required>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="font-bold block mb-1 text-gray-600">Jornada Laboral (Máximo legal Art. 61 LFT)</label>
+                            <select id="edit-emp-jornada" class="w-full bg-gray-100 border border-gray-300 rounded-xl p-3 font-semibold">
+                                <option value="Diurna: 40 horas semanales (Lunes a Viernes)">Diurna: 40 horas semanales (Lunes a Viernes)</option>
+                                <option value="Diurna: 48 horas semanales (Art. 61 LFT)">Diurna: 48 horas semanales (Máximo Legal LFT)</option>
+                                <option value="Mixta: 45 horas semanales (Art. 61 LFT)">Mixta: 45 horas semanales (Art. 61 LFT)</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2 bg-emerald-50 border border-emerald-200 p-3.5 rounded-xl space-y-1.5">
+                            <p class="font-bold text-primary">Prestaciones Mínimas Obligatorias (Filtro Trabajo Decente LFT):</p>
+                            <label class="flex items-center gap-2"><input type="checkbox" id="chk-imss" checked required class="accent-primary"> Alta obligatoria en IMSS, INFONAVIT (5%) y AFORE desde el día 1 (Art. 15 LSS)</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" id="chk-aguinaldo" checked required class="accent-primary"> Aguinaldo mínimo de 15 días de salario anual (Art. 87 LFT)</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" id="chk-vacaciones" checked required class="accent-primary"> 12 días de vacaciones pagadas + 25% Prima Vacacional (Arts. 76 y 80 LFT)</label>
+                        </div>
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-3 pt-2">
                         <button type="submit" class="bg-primary hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl shadow text-xs flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-floppy-disk"></i> Guardar Datos de Empresa
+                            <i class="fa-solid fa-floppy-disk"></i> Guardar Datos y Condiciones LFT
                         </button>
                         <button type="button" onclick="irACandidatos()" class="bg-secondary hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl shadow text-xs flex items-center justify-center gap-2">
                             <i class="fa-solid fa-users-viewfinder"></i> Evaluar Candidatos
@@ -216,7 +234,7 @@
                 <div class="flex justify-between items-center border-b pb-4">
                     <div>
                         <h2 class="text-xl font-black text-secondary">Candidatos Evaluados</h2>
-                        <p class="text-xs text-gray-500">Revisa sus calificaciones y emite tu decisión con retroalimentación.</p>
+                        <p class="text-xs text-gray-500">Revisa sus competencias y emite tu decisión con criterio objetivo.</p>
                     </div>
                     <button onclick="cargarCandidatos()" class="bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-xl text-xs font-bold">
                         <i class="fa-solid fa-rotate"></i> Actualizar
@@ -234,7 +252,7 @@
             <div class="bg-white rounded-3xl shadow-xl p-6 md:p-10 text-center border border-gray-200 space-y-4">
                 <h2 class="text-2xl font-bold text-secondary">Alianza PyMEs & Universidad Politécnica de Pénjamo</h2>
                 <p class="text-xs md:text-sm text-gray-700 text-justify leading-relaxed">
-                    SGC-LABORAL conecta a micro y pequeñas empresas formalmente constituidas con egresados verificados. Nuestro compromiso es reducir la rotación de personal mediante evaluaciones técnicas transparentes y promover el cumplimiento del Objetivo de Desarrollo Sostenible 8 (Trabajo Decente y Crecimiento Económico).
+                    SGC-LABORAL conecta a micro y pequeñas empresas formalmente constituidas con egresados evaluados. Nuestro compromiso es reducir la rotación de personal mediante evaluaciones técnicas transparentes y promover el cumplimiento del Objetivo de Desarrollo Sostenible 8 (Trabajo Decente y Crecimiento Económico).
                 </p>
                 <button onclick="navTo('emp-view-inicio')" class="bg-secondary text-white font-bold py-2.5 px-6 rounded-full text-xs">
                     Volver al Inicio
